@@ -17,75 +17,32 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-cards';
-// import { getData } from '@/API/api'
+import { getData } from '@/API/api'
 import TheButton from '@/components/button/TheButton.vue'
-import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 
 const activeSlideIndex = ref<number>(0)
-const list = ref<itemType[]>([
-   {
-      "id":"cbc-news",
-      "name":"CBC News",
-      "description":"CBC News is the division of the Canadian Broadcasting Corporation responsible for the news gathering and production of news programs on the corporation's English-language operations, namely CBC Television, CBC Radio, CBC News Network, and CBC.ca.",
-      "url":"http://www.cbc.ca/news",
-      "category":"general",
-      "language":"en",
-      "country":"ca",
-      "pic":"https://picsum.photos/768/432"
-   },
-   {
-      "id":"financial-post",
-      "name":"Financial Post",
-      "description":"Find the latest happenings in the Canadian Financial Sector and stay up to date with changing trends in Business Markets. Read trading and investing advice from professionals.",
-      "url":"https://financialpost.com",
-      "category":"business",
-      "language":"en",
-      "country":"ca",
-      "pic":"https://picsum.photos/768/432"
-   },
-   {
-      "id":"google-news-ca",
-      "name":"Google News (Canada)",
-      "description":"Comprehensive, up-to-date Canada news coverage, aggregated from sources all over the world by Google News.",
-      "url":"https://news.google.com",
-      "category":"general",
-      "language":"en",
-      "country":"ca",
-      "pic":"https://picsum.photos/768/432"
-   },
-   {
-      "id":"the-globe-and-mail",
-      "name":"The Globe And Mail",
-      "description":"The Globe and Mail offers the most authoritative news in Canada, featuring national and international news.",
-      "url":"https://www.theglobeandmail.com",
-      "category":"general",
-      "language":"en",
-      "country":"ca",
-      "pic":"https://picsum.photos/768/432"
-   }
-])
+const list = ref<itemType[]>([])
 const handleSlideChange = (swiper: any) => {
   activeSlideIndex.value = swiper.activeIndex
 }
 const goRead = () => {
   window.open(list.value[activeSlideIndex.value].url, '_blank')
 }
-// const handleGetData = () => {
-//   getData({
-//     apiKey: 'c2a498d47fa6425dbc71eb697f10448a',
-//     country: 'ca'
-//   })
-//   .then((res) => {
-//     console.log('res::', res)
-//     list.value = res.map((item) => {
-//       return {...item, pic: "https://picsum.photos/768/432"}
-//     })
-//     console.log('list.value::', JSON.stringify(list.value))
-//   })
-// }
+const handleGetData = () => {
+  getData({
+    apiKey: 'c2a498d47fa6425dbc71eb697f10448a',
+    country: 'ca'
+  })
+  .then((res) => {
+    console.log('res::', res)
+    list.value = res.map((item) => {
+      return {...item, pic: "https://picsum.photos/768/432"}
+    })
+    console.log('list.value::', JSON.stringify(list.value))
+  })
+}
 
-// handleGetData()
+handleGetData()
 
 </script>
 
@@ -135,6 +92,9 @@ main {
   min-height: 120vh;
   max-width: $xl;
   margin: 48px auto 0;
+  @include pc{
+    width: 90%;
+  }
 }
 .banner {
   display: flex;
